@@ -34,7 +34,7 @@ Optionally pass it domains to safelist and not apply this attribute, as an array
 
 ```ruby
 config.middleware.use Rack::Relations::Middleware,
-  safelist: ["example.com", /\.org\Z/]
+  safelist_domains: ["example.com", /\.org\Z/]
 ```
 
 ## Development

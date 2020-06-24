@@ -2,20 +2,20 @@ require "test_helper"
 
 describe Rack::Relations::Middleware do
   let(:memoized_app) { app }
-  let(:safelist) { ["example.com"] }
+  let(:safelist_domains) { ["example.com"] }
 
   describe "#initialize" do
     it "remembers the information given to it" do
-      subject = Rack::Relations::Middleware.new(memoized_app, safelist: safelist)
+      subject = Rack::Relations::Middleware.new(memoized_app, safelist_domains: safelist_domains)
 
       assert_equal memoized_app, subject.app
-      assert_equal safelist, subject.processor.safelist
+      assert_equal safelist_domains, subject.processor.safelist_domains
     end
 
-    it "defaults to an empty safelist" do
+    it "defaults to an empty safelist_domains" do
       subject = Rack::Relations::Middleware.new(app)
 
-      assert_equal [], subject.processor.safelist
+      assert_equal [], subject.processor.safelist_domains
     end
   end
 

@@ -3,11 +3,11 @@ require "uri"
 module Rack
   module Relations
     class Anchor
-      attr_accessor :node, :safelist, :uri
+      attr_accessor :node, :safelist_domains, :uri
 
-      def initialize(node, safelist:)
+      def initialize(node, safelist_domains:)
         @node = node
-        @safelist = safelist
+        @safelist_domains = safelist_domains
         @uri = URI(node.attr("href")) rescue nil
       end
 
@@ -17,9 +17,8 @@ module Rack
 
       def safe?
         return true if uri.relative?
-        return true if safelist.any? { |matcher| match?(matcher: matcher, host: uri.host) }
 
-        false
+        safelist_domains.any? { |matcher| match?(matcher: matcher, host: uri.host) }
       end
 
       private def match?(matcher:, host:)

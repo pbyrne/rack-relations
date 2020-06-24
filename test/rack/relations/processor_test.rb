@@ -2,7 +2,7 @@ require "test_helper"
 
 describe Rack::Relations::Processor do
   describe "#perform" do
-    subject { Rack::Relations::Processor.new(safelist: []) }
+    subject { Rack::Relations::Processor.new(safelist_domains: []) }
 
     it "gracefully handles invalid markup" do
       body = ["not markup"]
@@ -95,7 +95,7 @@ describe Rack::Relations::Processor do
       assert_equal body, result
     end
 
-    it "does not add `rel` attributes to exact domain safelist matches and their subdomains" do
+    it "does not add `rel` attributes to exact domain safelist_domains matches and their subdomains" do
       body = [
         <<~EOH
         <a href="https://example.com">safe</a>
@@ -103,7 +103,7 @@ describe Rack::Relations::Processor do
         <a href="https://foo.example.org">unsafe</a>
         EOH
       ]
-      subject = Rack::Relations::Processor.new(safelist: ["example.com"])
+      subject = Rack::Relations::Processor.new(safelist_domains: ["example.com"])
 
       result = subject.perform(body)
 
@@ -125,7 +125,7 @@ describe Rack::Relations::Processor do
         <a href="https://bar.example.com">unsafe</a>
         EOH
       ]
-      subject = Rack::Relations::Processor.new(safelist: ["foo.example.com"])
+      subject = Rack::Relations::Processor.new(safelist_domains: ["foo.example.com"])
 
       result = subject.perform(body)
 
@@ -146,7 +146,7 @@ describe Rack::Relations::Processor do
         <a href="https://example.com.haxxor.net">unsafe</a>
         EOH
       ]
-      subject = Rack::Relations::Processor.new(safelist: ["example.com"])
+      subject = Rack::Relations::Processor.new(safelist_domains: ["example.com"])
 
       result = subject.perform(body)
 
@@ -158,7 +158,7 @@ describe Rack::Relations::Processor do
       ], result
     end
 
-    it "does not add `rel` attributes to domains matching regular expressions in the safelist" do
+    it "does not add `rel` attributes to domains matching regular expressions in the safelist_domains" do
       body = [
         <<~EOH
         <a href="https://example.org">safe</a>
@@ -166,7 +166,7 @@ describe Rack::Relations::Processor do
         <a href="https://example.com">unsafe</a>
         EOH
       ]
-      subject = Rack::Relations::Processor.new(safelist: [/\.org$/])
+      subject = Rack::Relations::Processor.new(safelist_domains: [/\.org$/])
 
       result = subject.perform(body)
 

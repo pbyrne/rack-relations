@@ -3,9 +3,9 @@ module Rack
     class Middleware
       attr_accessor :app, :processor
 
-      def initialize(app, safelist: [])
+      def initialize(app, safelist_domains: [])
         @app = app
-        @processor = Rack::Relations::Processor.new(safelist: safelist)
+        @processor = Rack::Relations::Processor.new(safelist_domains: safelist_domains)
       end
 
       def call(env)
