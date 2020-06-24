@@ -1,8 +1,12 @@
+require "rack"
 require "rack/relations/version"
+
+require "rack/relations/anchor"
+require "rack/relations/middleware"
+require "rack/relations/processor"
 
 module Rack
   module Relations
-    class Error < StandardError; end
-    # Your code goes here...
+    Error = Class.new(StandardError)
   end
 end

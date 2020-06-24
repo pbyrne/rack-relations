@@ -1,8 +1,6 @@
 # Rack::Relations
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rack/relations`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Dynamically add `rel="nofollow noopener noreferrer"` to links on your page, so you don't have to remember to do it yourself. This is useful if you include links in your app to user-submitted URLs, to which you don't want to confer SEO benefits nor expose your users to potential phishing via `window.opener`.
 
 ## Installation
 
@@ -22,7 +20,22 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Add to your Rack app like so:
+
+```ruby
+# Rack
+use Rack::Relations::Middleware
+
+# Rails, config/application.rb
+config.middleware.use Rack::Relations::Middleware
+```
+
+Optionally pass it domains to safelist and not apply this attribute, as an array of strings (for exact domain matches) or regular expressions (for more fine-grained specificity):
+
+```ruby
+config.middleware.use Rack::Relations::Middleware,
+  safelist: ["example.com", /\.org\Z/]
+```
 
 ## Development
 

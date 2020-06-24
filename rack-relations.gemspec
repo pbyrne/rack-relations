@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Patrick Byrne"]
   spec.email         = ["code@patrickbyrne.net"]
 
-  spec.summary       = %q{Dynamically rewrite markup to add `rel="noreferer noopener"` to non-safelisted links.}
+  spec.summary       = %q{Dynamically rewrite markup to add `rel="nofollow noopener noreferrer"` to non-safelisted links.}
   spec.homepage      = "https://github.com/pbyrne/rack-relation.git"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
@@ -24,6 +24,10 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "rack", ">= 2.0", "< 3"
   spec.add_runtime_dependency "nokogiri", "~> 1.10"
+  spec.add_runtime_dependency "rack", ">= 2.0", "< 3"
+
+  spec.add_development_dependency "mocha"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "rack-test"
 end
