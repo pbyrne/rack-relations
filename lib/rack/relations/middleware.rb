@@ -11,7 +11,7 @@ module Rack
       def call(env)
         status, headers, response = @app.call(env)
 
-        response = @processor.perform(response)
+        response = @processor.perform(response) if headers["Content-Type"].to_s.include?("text/html")
 
         [status, headers, response]
       end
